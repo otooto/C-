@@ -8,6 +8,7 @@ C言語の標準入力関係について述べていく
 - fgets
 - sscanf
 - atoi
+- scanf
 
 ## puts
 
@@ -64,4 +65,23 @@ sscanf(str,format,locale);
 
 strから渡されたデータがformatに従って型変換されて、localeで指定した変数やアドレスに渡される。
 
-# fgetsとsscanfを使用する。
+戻り値としては、localeに渡す事が出来た変数の数を返してくれる。処理が一切されない時にはEOFを返す。
+
+```
+int n;
+n = sscanf(~~);
+```
+ex)fgets_sscanf_input.c
+
+第2引数ではint型とdouble型をそれぞれ指定している。するとchar型の配列を指定した型に変換して第3引数で指定した変数などに渡す。
+
+# atoi
+
+文字列を整数に変換する。`atof`など使うとdoubleにもできる。
+
+ex) fgets_atoi.c
+
+
+# scanf
+
+いつもの入力。だけどこれは通常使われないらしい。使われたらネットで絡まれるから注意。
