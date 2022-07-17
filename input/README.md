@@ -8,9 +8,64 @@ C言語の標準入力関係について述べていく
 - fgets
 - sscanf
 - atoi
+- strtok
 - scanf
 
-## puts
+# 入力数の分からない不定形のstrの入力の変換
+
+paizaで使いたい奴のサンプルコード
+
+ex)sample.c
+
+## 処理の流れについて
+
+まず各種変数について
+
+```
+char str[100];
+char delim[] =" \n";
+char *token;
+int num;
+```
+
+- str : 標準入力を受け取る文字列
+- delim : 区切り文字を持つ文字列
+- *token : 最終的に区切りたい文字列のアドレス
+- num : int型へキャストされた文字列を受け取る変数
+
+次にwhileに入るまでの処理について説明する。
+
+```
+fgets(str,sizeof(str),stdin);
+
+token = strtok(str,delim);
+```
+
+fgetsでキーボード入力からの文字列をstrへ渡す。そしてstrtokを使う事で区切り文字に決めた空白までにある文字列(配列)をポインタ型変数のtokenに渡す。
+
+最後に繰り返しの処理
+
+```
+while (token != NULL) {
+
+    num = atoi(token);
+
+    //printfは省略
+
+    token = strtok(NULL, delim);
+}
+```
+
+tokenには基本区切り文字が入る。しかし最後まで行くとNULLが代入される。
+
+atoiでstrからintへのキャストをしている。
+
+strtokでは第1引数にNULLを指定すると、その前のstrtokでNULLに置き換えた位置の次のアドレス(つまり次に切り取りたい文字列の先頭部分)を自動的に指定してくれる。これをループすることで空白で文字列を切り取り続ける。
+
+strtokの使用は細かいので次の説明に回す。
+
+
+# puts
 
 文字列を出力するのに特化している関数。変数は無理
 
